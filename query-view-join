@@ -86,4 +86,25 @@ SELECT eq.Name AS Equipment_Name, et.Equipment_Type_Name, eq.Rental_Status
 FROM Equipment eq
 JOIN Equipment_Type et ON eq.Equipment_Type_ID = et.Equipment_Type_ID;
 
+-- ---------------------------------------------
+-- Extra Simple Select Queries
+-- ---------------------------------------------
+
+-- 1. List the rental statuses and their counts
+SELECT Rental_Status, COUNT(*) AS Status_Count 
+FROM Equipment 
+GROUP BY Rental_Status;
+
+-- 2. Count the number of different equipment types rented by each customer
+SELECT c.Name, COUNT(DISTINCT eq.Equipment_Type_ID) AS Distinct_Equipment_Types
+FROM Customer c
+JOIN Rental r ON c.Customer_ID = r.Customer_ID
+JOIN Equipment eq ON r.Equipment_ID = eq.Equipment_ID
+GROUP BY c.Name;
+
+-- 3. List the distinct payment methods used by customers and their counts
+SELECT DISTINCT Payment_Method, COUNT(*) AS Method_Count
+FROM Payment
+GROUP BY Payment_Method;
+
 -- End of file
